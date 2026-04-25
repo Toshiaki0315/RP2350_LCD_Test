@@ -48,3 +48,9 @@ pico_sdk_import.cmake
 *.key
 *.secret
 .env
+
+# ローカルの進捗管理用
+Task.md
+
+# --- エディタ設定 (完全に除外する場合) ---
+.vscode/
