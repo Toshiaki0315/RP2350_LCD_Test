@@ -1,0 +1,50 @@
+# --- ビルド成果物 (セキュリティ & 容量削減) ---
+# バイナリにはソースコードの情報や環境パスが含まれる可能性があるため除外
+build/
+bin/
+obj/
+*.elf
+*.bin
+*.hex
+*.uf2
+*.map
+
+# --- Raspberry Pi Pico SDK / CMake 関連 ---
+# ローカルのSDKパス設定が含まれるファイルを排除
+.pico_sdk/
+cmake-build-debug/
+cmake-build-release/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+pico_sdk_import.cmake
+# ※pico_sdk_import.cmakeはSDKからコピーしてくるものなので、
+#   リポジトリには含めず、利用者が各自配置するのが一般的です。
+
+# --- エディタ・IDE設定 (Cursor / VS Code) ---
+# 個人の環境設定（絶対パスや最近開いたファイル等）を排除
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+# ※上記設定ファイルのうち、共有すべきもの以外を隠したい場合は
+#   .vscode/ フォルダごと除外しても構いません。
+
+.history/
+*.log
+.DS_Store
+
+# --- 一時ファイル・バックアップ ---
+*~
+*.swp
+*.bak
+*.tmp
+
+# --- セキュリティ項目 (最優先) ---
+# 万が一、秘密鍵やカスタム証明書などを使う場合に備えて
+*.pem
+*.key
+*.secret
+.env
