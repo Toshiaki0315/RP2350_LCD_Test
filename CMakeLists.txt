@@ -1,3 +1,9 @@
+cmake_minimum_required(VERSION 3.13)
+
+# 1. 拡張機能の設定が読み込まれる前にボードを固定する
+set(PICO_BOARD pico2 CACHE STRING "Board type" FORCE)
+set(PICO_PLATFORM rp2350 CACHE STRING "Platform type" FORCE)
+
 # == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
 if(WIN32)
     set(USERHOME $ENV{USERPROFILE})
@@ -12,7 +18,6 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-cmake_minimum_required(VERSION 3.13)
 
 # Raspberry Pi Pico SDK のインポート
 include(pico_sdk_import.cmake)
@@ -27,15 +32,9 @@ pico_sdk_init()
 # 実行ファイルの追加
 add_executable(RP2350_LCD_Test
     src/main.cpp
-    # 今後ファイルが増えたらここに追加
-    # src/lcd_driver.cpp
-    # src/touch_driver.cpp
 )
 
-# リンクするライブラリの指定
-# hardware_spi: LCD通信用
-# hardware_i2c: タッチパネル通信用
-# hardware_pwm: バックライト輝度制御用
+# リンクするライブラリ
 target_link_libraries(RP2350_LCD_Test 
     pico_stdlib 
     hardware_spi 
@@ -43,10 +42,7 @@ target_link_libraries(RP2350_LCD_Test
     hardware_pwm
 )
 
-# ボードの指定（Pico 2 / RP2350）
-set(PICO_BOARD pico2)
-
-# 標準出力（printf等）をUSBシリアル経由に設定
+# 標準入出力設定
 pico_enable_stdio_usb(RP2350_LCD_Test 1)
 pico_enable_stdio_uart(RP2350_LCD_Test 0)
 
